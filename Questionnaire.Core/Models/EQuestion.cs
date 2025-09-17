@@ -15,12 +15,7 @@ public class EQuestion : IEntity
 
     public int QuestionnaireId { get; set; }
 
-    public virtual EQuestionnaire Questionnaire { get; set; } = new EQuestionnaire();
-
-    public int ReponseCorrecteId { get; set; }
-
-    [ForeignKey("ReponseCorrecteId")]
-    public virtual EReponse ReponseCorrecte { get; set; }
+    public virtual EQuestionnaire Questionnaire { get; set; }
 
     public ObservableCollection<EReponse> Reponses { get; set; }
 

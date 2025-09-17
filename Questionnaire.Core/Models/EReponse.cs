@@ -1,4 +1,5 @@
 ﻿using Questionnaire.Core.Models.Abstractions;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Questionnaire.Core.Models;
@@ -11,7 +12,11 @@ public class EReponse : IEntity
     [Required]
     public string Contenu { get; set; }
 
+    [Required]
+    [DefaultValue(false)]
+    public bool EstBonneReponse { get; set; }
+
     public int QuestionId { get; set; }
 
-    public virtual EQuestion Question { get; set; } = new EQuestion();
+    public virtual EQuestion Question { get; set; }
 }

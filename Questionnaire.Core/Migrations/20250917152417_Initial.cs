@@ -5,7 +5,7 @@
 namespace Questionnaire.Core.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -30,8 +30,7 @@ namespace Questionnaire.Core.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Contenu = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    QuestionnaireId = table.Column<int>(type: "int", nullable: false),
-                    ReponseCorrecteId = table.Column<int>(type: "int", nullable: false)
+                    QuestionnaireId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -51,6 +50,7 @@ namespace Questionnaire.Core.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Contenu = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EstBonneReponse = table.Column<bool>(type: "bit", nullable: false),
                     QuestionId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -70,43 +70,22 @@ namespace Questionnaire.Core.Migrations
                 column: "QuestionnaireId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Questions_ReponseCorrecteId",
-                table: "Questions",
-                column: "ReponseCorrecteId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Reponses_QuestionId",
                 table: "Reponses",
                 column: "QuestionId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Questions_Reponses_ReponseCorrecteId",
-                table: "Questions",
-                column: "ReponseCorrecteId",
-                principalTable: "Reponses",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Questions_Questionnaires_QuestionnaireId",
-                table: "Questions");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Questions_Reponses_ReponseCorrecteId",
-                table: "Questions");
-
-            migrationBuilder.DropTable(
-                name: "Questionnaires");
-
             migrationBuilder.DropTable(
                 name: "Reponses");
 
             migrationBuilder.DropTable(
                 name: "Questions");
+
+            migrationBuilder.DropTable(
+                name: "Questionnaires");
         }
     }
 }

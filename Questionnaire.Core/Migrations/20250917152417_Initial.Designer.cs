@@ -11,8 +11,8 @@ using Questionnaire.Core.Context;
 namespace Questionnaire.Core.Migrations
 {
     [DbContext(typeof(QuestionnaireContext))]
-    [Migration("20250917101139_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250917152417_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,14 +39,9 @@ namespace Questionnaire.Core.Migrations
                     b.Property<int>("QuestionnaireId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ReponseCorrecteId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("QuestionnaireId");
-
-                    b.HasIndex("ReponseCorrecteId");
 
                     b.ToTable("Questions");
                 });
@@ -80,6 +75,9 @@ namespace Questionnaire.Core.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("EstBonneReponse")
+                        .HasColumnType("bit");
+
                     b.Property<int>("QuestionId")
                         .HasColumnType("int");
 
@@ -98,15 +96,7 @@ namespace Questionnaire.Core.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Questionnaire.Core.Models.EReponse", "ReponseCorrecte")
-                        .WithMany()
-                        .HasForeignKey("ReponseCorrecteId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.Navigation("Questionnaire");
-
-                    b.Navigation("ReponseCorrecte");
                 });
 
             modelBuilder.Entity("Questionnaire.Core.Models.EReponse", b =>

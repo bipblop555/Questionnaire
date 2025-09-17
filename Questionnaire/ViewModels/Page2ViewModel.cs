@@ -31,14 +31,9 @@ public sealed partial class Page2ViewModel
     {
         var question = new EQuestion
         {
+            QuestionnaireId = 4,
             Contenu = "Question test",
-            Reponses = new ObservableCollection<EReponse>
-            {
-                new EReponse { Contenu = "Réponse 1" },
-                new EReponse { Contenu = "Réponse 2" },
-                new EReponse { Contenu = "Réponse 3" }
-            },
-            ReponseCorrecte = new EReponse { Contenu = "Réponse 3" }
+            
         };
 
         this.questionService.AddQuestion(question);
