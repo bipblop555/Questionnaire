@@ -38,15 +38,12 @@ public sealed partial class QuestionnaireViewModel : ObservableObject
     {
         if (!string.IsNullOrWhiteSpace(NewQuestionnaireTitle))
         {
-            // Create new questionnaire with the text from TextBox
             var newQuestionnaire = new EQuestionnaire
             {
                 Title = NewQuestionnaireTitle.Trim()
             };
-
-            Questionnaires.Add(newQuestionnaire);
-
-            // Clear the textbox after adding
+            this.questionnaireService.AddQuestionaire(newQuestionnaire);
+            this.Questionnaires.Add(newQuestionnaire);
             NewQuestionnaireTitle = "";
         }
     }
