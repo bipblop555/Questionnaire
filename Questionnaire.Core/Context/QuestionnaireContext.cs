@@ -26,11 +26,5 @@ public class QuestionnaireContext : DbContext
             .WithOne(r => r.Question)
             .HasForeignKey(r => r.QuestionId)
             .OnDelete(DeleteBehavior.Cascade);
-        modelBuilder.Entity<EQuestion>()
-            .HasOne(q => q.ReponseCorrecte)
-            .WithMany()
-            .HasForeignKey(q => q.ReponseCorrecteId)
-            .OnDelete(DeleteBehavior.Restrict);
     }
-
 }
