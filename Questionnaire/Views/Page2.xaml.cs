@@ -1,5 +1,5 @@
 ﻿using System.Windows.Controls;
-
+using Questionnaire.ViewModels;
 namespace Questionnaire.Views
 {
     /// <summary>
@@ -10,6 +10,7 @@ namespace Questionnaire.Views
         public Page2()
         {
             InitializeComponent();
+            this.DataContext = new Page2ViewModel();
         }
     }
 }

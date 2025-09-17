@@ -4,34 +4,43 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Questionnaire.Views"
+      xmlns:viewmodels="clr-namespace:Questionnaire.ViewModels"
+      xmlns:models="clr-namespace:Questionnaire.Core.Models;assembly=Questionnaire.Core"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
+      d:DataContext="{d:DesignInstance Type=viewmodels:Page2ViewModel}"
       Title="Page2">
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*" />
-
-        </Grid.ColumnDefinitions>
+    <Page.Resources>
+        <DataTemplate x:Key="QuestionTemplate">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Vertical" Grid.Column="0" >
+                    <Label Content="Questions"></Label>
+                    <StackPanel Height="60" VerticalAlignment="Top" Orientation="Horizontal">
+                        <TextBlock Text="{Binding Contenu}"></TextBlock>
+                        <TextBlock Text="{Binding ReponseCorrecte}"></TextBlock>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
         
-        
-
-        <StackPanel Orientation="Vertical" >
-            <Label Content="Questions"></Label>
-            <StackPanel Height="60" VerticalAlignment="Top" Orientation="Horizontal">
-
-                <TextBlock Text="Quelle est la capitale de la france ?"></TextBlock>
-                <TextBlock Text="Paris"></TextBlock>
-            </StackPanel>
-
-        </StackPanel>
-        
-        <Grid Grid.Column="1">
+        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <StackPanel>
+                <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <ListBox 
+            x:Name="QuestionListBox"
+            ItemsSource="{Binding Questions}"
+            SelectedItem="{Binding SelectedQuestion}"
+            ItemTemplate="{Binding QuestionTemplate}"/>
+
+        <StackPanel Grid.Column="1">
                 <Label Content="Question" Height="30"></Label>
                 <TextBox Height="30" VerticalContentAlignment="Center"
                          Text="Quelle est la capitale de la france ?"></TextBox>
@@ -48,16 +57,13 @@
                 <TextBox Height="30" VerticalContentAlignment="Center"
                     Text="Paris"></TextBox>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                <Button Width="120" Height="40" Margin="0,0,20,0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Column="1">
+            <Button Width="120" Height="40" Margin="0,0,20,0" Command="{Binding AddQuestionCommand}">
                     <TextBlock Text="Ajouter question"></TextBlock>
                 </Button>
-                <Button Width="120" Height="40" >
+                <Button Width="120" Height="40" Command="{Binding RemoveQuestionCommand}" >
                     <TextBlock Text="Supprimer question"></TextBlock>
                 </Button>
             </StackPanel>
         </Grid>
-
-    </Grid>
-
 </Page>
