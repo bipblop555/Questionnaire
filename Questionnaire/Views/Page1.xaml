@@ -4,6 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Questionnaire.Views"
+      xmlns:viewmodels="clr-namespace:Questionnaire.ViewModels" 
+      d:DataContext="{d:DesignInstance Type=viewmodels:QuestionnaireViewModel}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Page1">
@@ -23,35 +25,38 @@
                    FontWeight="Bold"/>
 
         <!-- List with Remove buttons -->
-        <ScrollViewer Grid.Row="1" Margin="10">
-            <ItemsControl x:Name="QuestionnairesList">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
+        <ListBox Grid.Row="1" 
+            Margin="10"
+            SelectedItem="{Binding SelectedQuestionnaire}"
+            ItemsSource="{Binding Questionnaires}"
+            BorderThickness="0">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
 
-                            <TextBlock Text="{Binding Title}" 
-                                       Margin="5" 
-                                       VerticalAlignment="Center"/>
-                            <Button Content="Remove" 
-                                    Grid.Column="1"
-                                    Margin="5"
-                                    Click="RemoveQuestionnaire_Click"
-                                    Tag="{Binding Id}"/>
-                        </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
+                        <TextBlock Text="{Binding Title}" 
+                           Margin="5" 
+                           VerticalAlignment="Center"/>
+                        <Button Content="Remove" 
+                            Grid.Column="1"
+                            Margin="5" 
+                            Command="{Binding DataContext.DeleteQuestionnaireCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                            CommandParameter="{Binding .}"
+                            Tag="{Binding Id}"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
         <!-- Add Button -->
         <Button Grid.Row="2" 
                 x:Name="AddButton" 
                 Content="Add New Questionnaire" 
                 Margin="10"
-                Click="AddQuestionnaire_Click"/>
+                Command="{Binding NewQuestionnaireCommand}"/>
     </Grid>
 </Page>
