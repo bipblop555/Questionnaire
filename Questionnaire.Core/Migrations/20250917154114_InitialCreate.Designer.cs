@@ -11,8 +11,8 @@ using Questionnaire.Core.Context;
 namespace Questionnaire.Core.Migrations
 {
     [DbContext(typeof(QuestionnaireContext))]
-    [Migration("20250917152417_Initial")]
-    partial class Initial
+    [Migration("20250917154114_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

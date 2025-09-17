@@ -16,7 +16,10 @@ public sealed partial class QuestionnaireViewModel : ObservableObject
     public ICommand NewQuestionnaireCommand { get; set; } = null!;
     public ICommand DeleteQuestionnaireCommand { get; set; } = null!;
     public ICommand OpenQuestionnaireCommand { get; set; } = null!;
-    
+
+    [ObservableProperty]
+    private string newQuestionnaireTitle = "";
+
     public ObservableCollection<EQuestionnaire> Questionnaires { get; set; } = new();
 
     [ObservableProperty]
@@ -33,10 +36,19 @@ public sealed partial class QuestionnaireViewModel : ObservableObject
 
     private void AddQuestionnaire()
     {
-        var questionnaire = new EQuestionnaire { Title = "Questionnaire Test" };
-        this.questionnaireService.AddQuestionaire(questionnaire);
-        this.selectedQuestionnaire = questionnaire;
-        this.Questionnaires.Add(questionnaire);
+        if (!string.IsNullOrWhiteSpace(NewQuestionnaireTitle))
+        {
+            // Create new questionnaire with the text from TextBox
+            var newQuestionnaire = new EQuestionnaire
+            {
+                Title = NewQuestionnaireTitle.Trim()
+            };
+
+            Questionnaires.Add(newQuestionnaire);
+
+            // Clear the textbox after adding
+            NewQuestionnaireTitle = "";
+        }
     }
 
     private void DeleteQuestionnaire(EQuestionnaire? questionnaire)
