@@ -36,14 +36,18 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
                         <TextBlock Text="{Binding Title}" 
                            Margin="5" 
                            VerticalAlignment="Center"/>
-                        <Button Content="Remove" 
+                        <Button Content="Open" 
                             Grid.Column="1"
-                            Margin="5" 
+                            Command="{Binding DataContext.OpenQuestionnaireCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                            CommandParameter="{Binding Id}"/>
+                        <Button Content="Remove" 
+                            Grid.Column="2"
                             Command="{Binding DataContext.DeleteQuestionnaireCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
                             CommandParameter="{Binding .}"
                             Tag="{Binding Id}"/>
