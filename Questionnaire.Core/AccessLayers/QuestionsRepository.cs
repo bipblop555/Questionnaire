@@ -30,4 +30,7 @@ public sealed class QuestionsRepository
             this.DbContext.SaveChanges();
         }
     }
+
+    public List<EQuestion> GetAllQuestionByQuestionnaireId(int questionnaireId) 
+        => this.DbContext.Questions.Where(q => q.QuestionnaireId == questionnaireId).ToList();
 }

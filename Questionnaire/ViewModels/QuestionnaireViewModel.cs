@@ -31,7 +31,7 @@ public sealed partial class QuestionnaireViewModel : ObservableObject
         this.Questionnaires = this.questionnaireService.GetQuestionnaires();
         this.NewQuestionnaireCommand = new RelayCommand(this.AddQuestionnaire);
         this.DeleteQuestionnaireCommand = new RelayCommand<EQuestionnaire>(this.DeleteQuestionnaire);
-        this.OpenQuestionnaireCommand = new RelayCommand(this.OpenQuestionaire);
+        this.OpenQuestionnaireCommand = new RelayCommand<Int32>(this.OpenQuestionaire);
     }
 
     private void AddQuestionnaire()
@@ -57,9 +57,10 @@ public sealed partial class QuestionnaireViewModel : ObservableObject
         }
     }
 
-    private void OpenQuestionaire()
+    private void OpenQuestionaire(int questionnaireId)
     {
-        var page2 = new Page2();
+
+        var page2 = new Page2(questionnaireId);
         var navigationWindow = Application.Current.MainWindow as NavigationWindow;
         navigationWindow?.Navigate(page2);
     }
