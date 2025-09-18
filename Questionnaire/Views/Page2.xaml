@@ -12,34 +12,46 @@
       Title="Page2">
 
     <Page.Resources>
-        <DataTemplate x:Key="QuestionTemplate">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <StackPanel Orientation="Vertical" Grid.Column="0" >
-                    <Label Content="Questions"></Label>
-                    <StackPanel Height="60" VerticalAlignment="Top" Orientation="Horizontal">
-                        <TextBlock Text="{Binding Contenu}"></TextBlock>
-                        <TextBlock Text="{Binding BonneReponse.Contenu}"></TextBlock>
-                    </StackPanel>
-                </StackPanel>
-            </Grid>
-        </DataTemplate>
+
+        
     </Page.Resources>
         
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
         <ListBox 
             x:Name="QuestionListBox"
             ItemsSource="{Binding Questions}"
             SelectedItem="{Binding SelectedQuestion}"
-            ItemTemplate="{StaticResource QuestionTemplate}"
-            />
+            
+            Grid.Column="0"
+            >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" VerticalAlignment="Top" Orientation="Horizontal" HorizontalAlignment="Stretch">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" FontWeight="Bold" Text="{Binding Contenu}" Width="300"></TextBlock>
+                            <TextBlock Grid.Column="1" Text="{Binding BonneReponse.Contenu}" TextWrapping="Wrap"></TextBlock>
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            
+        </ListBox>
 
         <StackPanel Grid.Column="1">
                 <Label Content="Question" Height="30"></Label>
