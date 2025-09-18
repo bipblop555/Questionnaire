@@ -53,12 +53,12 @@
                                    Margin="5" 
                                    VerticalAlignment="Center"
                                    />
-                        <Button Content="Open" 
+                        <Button Content="Ouvrir" 
                                 Grid.Column="1"
                                 Style="{StaticResource PrimaryButtonStyle}"
                                 Command="{Binding DataContext.OpenQuestionnaireCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
                                 CommandParameter="{Binding Id}"/>
-                        <Button Content="Remove"
+                        <Button Content="Supprimer"
                                 Style="{StaticResource DangerButtonStyle}"
                                 Grid.Column="2"
                                 Command="{Binding DataContext.DeleteQuestionnaireCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
