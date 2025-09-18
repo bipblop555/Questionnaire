@@ -16,9 +16,12 @@ internal class ReponseService
     public ObservableCollection<EReponse> GetReponsesByQuestionId(int questionId)
         => new ObservableCollection<EReponse>(this.reponsesRepository.GetReponsesByQuestionId(questionId));
 
-    public void AddReponse(EReponse reponse)
+    public void AddReponse(List<EReponse> reponse)
         => this.reponsesRepository.Create(reponse);
 
     public void DeleteReponse(int questionId)
         => this.reponsesRepository.Delete(questionId);
+
+    public void UpdateReponse(EReponse reponse) 
+        => this.reponsesRepository.Update(reponse);
 }
