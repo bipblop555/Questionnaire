@@ -59,7 +59,6 @@ public sealed partial class QuestionnaireViewModel : ObservableObject
 
     private void OpenQuestionaire(int questionnaireId)
     {
-
         var page2 = new Page2(questionnaireId);
         var navigationWindow = Application.Current.MainWindow as NavigationWindow;
         navigationWindow?.Navigate(page2);
