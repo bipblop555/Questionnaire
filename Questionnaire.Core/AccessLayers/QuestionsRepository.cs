@@ -1,4 +1,5 @@
-﻿using Questionnaire.Core.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using Questionnaire.Core.Context;
 using Questionnaire.Core.Models;
 
 namespace Questionnaire.Core.AccessLayers;
@@ -32,5 +33,10 @@ public sealed class QuestionsRepository
     }
 
     public List<EQuestion> GetAllQuestionByQuestionnaireId(int questionnaireId) 
-        => this.DbContext.Questions.Where(q => q.QuestionnaireId == questionnaireId).ToList();
+        => this.DbContext.Questions
+        .Include(q => q.Reponses)
+        .Where(q => q.QuestionnaireId == questionnaireId).ToList();
+
+    public void Update(EQuestion question)
+        => this.DbContext.Questions.Update(question);
 }

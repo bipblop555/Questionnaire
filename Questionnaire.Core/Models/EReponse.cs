@@ -1,6 +1,7 @@
 ﻿using Questionnaire.Core.Models.Abstractions;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Questionnaire.Core.Models;
 
