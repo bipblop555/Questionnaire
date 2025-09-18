@@ -20,4 +20,16 @@ public class ReponsesRepository
         this.DbContext.Reponses.Add(reponse);
         this.DbContext.SaveChanges();
     }
+
+    public void Delete(int questionId)
+    {
+        var reponse = this.DbContext.Reponses
+            .Where(r => r.QuestionId == questionId).ToList();
+        if ( reponse is not null)
+        {
+            this.DbContext.RemoveRange(reponse);
+            this.DbContext.SaveChanges();
+        }
+    }
+
 }

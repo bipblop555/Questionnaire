@@ -21,7 +21,7 @@
                     <Label Content="Questions"></Label>
                     <StackPanel Height="60" VerticalAlignment="Top" Orientation="Horizontal">
                         <TextBlock Text="{Binding Contenu}"></TextBlock>
-                        <TextBlock Text="{Binding ReponseCorrecte}"></TextBlock>
+                        <TextBlock Text="{Binding BonneReponse.Contenu}"></TextBlock>
                     </StackPanel>
                 </StackPanel>
             </Grid>
@@ -38,32 +38,38 @@
             x:Name="QuestionListBox"
             ItemsSource="{Binding Questions}"
             SelectedItem="{Binding SelectedQuestion}"
-            ItemTemplate="{Binding QuestionTemplate}"/>
+            ItemTemplate="{StaticResource QuestionTemplate}"
+            />
 
         <StackPanel Grid.Column="1">
                 <Label Content="Question" Height="30"></Label>
-                <TextBox Height="30" VerticalContentAlignment="Center"
-                         Text="Quelle est la capitale de la france ?"></TextBox>
+                <TextBox Height="30" VerticalContentAlignment="Center" x:Name="QuestionTitle"
+                         Text="{Binding SelectedQuestion.Contenu, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                 <Label Content="Réponses possibles" Height="30"></Label>
-                <TextBox Height="30" VerticalContentAlignment="Center"
-                         Text="Montpellier"></TextBox>
-                <TextBox Height="30" VerticalContentAlignment="Center"
-                        Text="Lyon"></TextBox>
-                <TextBox Height="30" VerticalContentAlignment="Center"
-                         Text="Nantes"></TextBox>
-                <TextBox Height="30" VerticalContentAlignment="Center"
-                        Text="Paris"></TextBox>
+                <TextBox Height="30" VerticalContentAlignment="Center" Margin="0, 10, 0, 0"
+                         Text="{Binding SelectedQuestion.MauvaisesReponses[0].Contenu}" x:Name="ReponseA"></TextBox>
+            <TextBox Height="30" VerticalContentAlignment="Center" Margin="0, 10, 0, 0"
+                        Text="{Binding SelectedQuestion.MauvaisesReponses[1].Contenu}" x:Name="ReponseB"></TextBox>
+            <TextBox Height="30" VerticalContentAlignment="Center" Margin="0, 10, 0, 0"
+                         Text="{Binding SelectedQuestion.MauvaisesReponses[2].Contenu}" x:Name="ReponseC"></TextBox>
+            <TextBox Height="30" VerticalContentAlignment="Center" Margin="0, 10, 0, 0"
+                        Text="{Binding SelectedQuestion.BonneReponse.Contenu, UpdateSourceTrigger=PropertyChanged}" x:Name="ReponseD" ></TextBox>
                 <Label Content="Bonne réponse" Height="30"></Label>
                 <TextBox Height="30" VerticalContentAlignment="Center"
-                    Text="Paris"></TextBox>
+                    Text="{Binding SelectedQuestion.BonneReponse.Contenu, UpdateSourceTrigger=PropertyChanged}" x:Name="BonneReponse"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Column="1">
             <Button Width="120" Height="40" Margin="0,0,20,0" Command="{Binding AddQuestionCommand}">
                     <TextBlock Text="Ajouter question"></TextBlock>
-                </Button>
-                <Button Width="120" Height="40" Command="{Binding RemoveQuestionCommand}" >
+            </Button>
+            <Button Width="120" Height="40" Margin="0,0,20,0" Command="{Binding UpdateQuestionCommand}"
+                    CommandParameter="{Binding SelectedQuestion.Id}">
+                    <TextBlock Text="Modifier question"></TextBlock>
+            </Button>
+            <Button Width="120" Height="40" Command="{Binding RemoveQuestionCommand}"
+                        CommandParameter="{Binding SelectedQuestion.Id}">
                     <TextBlock Text="Supprimer question"></TextBlock>
-                </Button>
+            </Button>
             </StackPanel>
         </Grid>
 </Page>

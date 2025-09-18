@@ -18,4 +18,7 @@ internal class ReponseService
 
     public void AddReponse(EReponse reponse)
         => this.reponsesRepository.Create(reponse);
+
+    public void DeleteReponse(int questionId)
+        => this.reponsesRepository.Delete(questionId);
 }

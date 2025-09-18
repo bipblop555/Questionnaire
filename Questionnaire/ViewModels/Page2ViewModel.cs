@@ -16,20 +16,11 @@ public sealed partial class Page2ViewModel
     private readonly ReponseService reponseService;
     public ICommand AddQuestionCommand { get; set; } = null!;
     public ICommand RemoveQuestionCommand { get; set; } = null!;
+    public ICommand UpdateQuestionCommand { get; set; } = null!;
     public ObservableCollection<EQuestion> Questions { get; set; } = new();
 
     [ObservableProperty]
     private EQuestion? selectedQuestion;
-
-    //public Page2ViewModel()
-    //{
-    //    this.questionService = new QuestionService();
-    //    this.reponseService = new ReponseService();
-
-    //    this.Questions = this.questionService.GetQuestions();
-    //    this.AddQuestionCommand = new RelayCommand(this.AddQuestion);
-    //    this.RemoveQuestionCommand = new RelayCommand<EQuestion>(this.DeleteQuestion);
-    //}
 
     public Page2ViewModel(int questionnaireId)
     {
@@ -40,7 +31,8 @@ public sealed partial class Page2ViewModel
 
         this.Questions = this.questionService.GetQuestionsByQuestionnaireId(questionnaireId);
         this.AddQuestionCommand = new RelayCommand(this.AddQuestion);
-        this.RemoveQuestionCommand = new RelayCommand<EQuestion>(this.DeleteQuestion);
+        this.RemoveQuestionCommand = new RelayCommand<int>(this.DeleteQuestion);
+        this.UpdateQuestionCommand = new RelayCommand<int>(this.UpdateQuestion);
     }
 
     private void AddQuestion()
@@ -48,38 +40,48 @@ public sealed partial class Page2ViewModel
         var question = new EQuestion
         {
             QuestionnaireId = this.questionnaireId,
-            Contenu = "Question test",
+            Contenu = "Titre de la question",
         };
 
         this.questionService.AddQuestion(question);
-        AddReponses(question);
-
-        this.SelectedQuestion = question;
-        this.Questions.Add(question);
-    }
-
-    private void AddReponses(EQuestion question)
-    {
         var reponses = new List<EReponse>
         {
-            new EReponse { Contenu = "Réponse 1", QuestionId = question.Id },
-            new EReponse { Contenu = "Réponse 2", QuestionId = question.Id },
-            new EReponse { Contenu = "Réponse 3", QuestionId = question.Id },
-            new EReponse { Contenu = "Réponse 4", QuestionId = question.Id, EstBonneReponse = true },
+            new EReponse { Contenu = "Réponse A", QuestionId = question.Id },
+            new EReponse { Contenu = "Réponse B", QuestionId = question.Id },
+            new EReponse { Contenu = "Réponse C", QuestionId = question.Id },
+            new EReponse { Contenu = "Réponse D", QuestionId = question.Id, EstBonneReponse = true },
         };
 
         foreach (var reponse in reponses)
         {
             this.reponseService.AddReponse(reponse);
         }
+
+        this.SelectedQuestion = question;
+        this.Questions.Add(question);
     }
 
-    private void DeleteQuestion(EQuestion? question)
+    //private void AddReponses(EQuestion question)
+    //{
+        
+    //}
+
+    private void UpdateQuestion(int questionId)
     {
-        if (question is not null)
-        {
-            this.questionService.RemoveQuestion(question);
+        //this.questionService.
+    }
+
+    private void DeleteQuestion(int questionId)
+    {
+        this.questionService.RemoveQuestion(questionId);
+        var question = this.Questions.FirstOrDefault(q => q.Id == questionId);
+        if(question is not null)
             this.Questions.Remove(question);
-        }
+        DeleteReponses(questionId);
+    }
+
+    private void DeleteReponses(int questionId)
+    {
+        this.reponseService.DeleteReponse(questionId);
     }
 }
