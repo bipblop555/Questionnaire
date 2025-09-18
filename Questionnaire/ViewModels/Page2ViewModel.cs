@@ -10,22 +10,35 @@ namespace Questionnaire.ViewModels;
 [ObservableObject]
 public sealed partial class Page2ViewModel
 {
+    private int questionnaireId;
+
     private readonly QuestionService questionService;
     private readonly ReponseService reponseService;
     public ICommand AddQuestionCommand { get; set; } = null!;
     public ICommand RemoveQuestionCommand { get; set; } = null!;
-
     public ObservableCollection<EQuestion> Questions { get; set; } = new();
 
     [ObservableProperty]
     private EQuestion? selectedQuestion;
 
-    public Page2ViewModel()
+    //public Page2ViewModel()
+    //{
+    //    this.questionService = new QuestionService();
+    //    this.reponseService = new ReponseService();
+
+    //    this.Questions = this.questionService.GetQuestions();
+    //    this.AddQuestionCommand = new RelayCommand(this.AddQuestion);
+    //    this.RemoveQuestionCommand = new RelayCommand<EQuestion>(this.DeleteQuestion);
+    //}
+
+    public Page2ViewModel(int questionnaireId)
     {
+        this.questionnaireId = questionnaireId;
+
         this.questionService = new QuestionService();
         this.reponseService = new ReponseService();
 
-        this.Questions = this.questionService.GetQuestions();
+        this.Questions = this.questionService.GetQuestionsByQuestionnaireId(questionnaireId);
         this.AddQuestionCommand = new RelayCommand(this.AddQuestion);
         this.RemoveQuestionCommand = new RelayCommand<EQuestion>(this.DeleteQuestion);
     }
@@ -34,13 +47,19 @@ public sealed partial class Page2ViewModel
     {
         var question = new EQuestion
         {
-            QuestionnaireId = 1,
+            QuestionnaireId = this.questionnaireId,
             Contenu = "Question test",
-
         };
 
         this.questionService.AddQuestion(question);
+        AddReponses(question);
 
+        this.SelectedQuestion = question;
+        this.Questions.Add(question);
+    }
+
+    private void AddReponses(EQuestion question)
+    {
         var reponses = new List<EReponse>
         {
             new EReponse { Contenu = "Réponse 1", QuestionId = question.Id },
@@ -53,9 +72,6 @@ public sealed partial class Page2ViewModel
         {
             this.reponseService.AddReponse(reponse);
         }
-
-        this.SelectedQuestion = question;
-        this.Questions.Add(question);
     }
 
     private void DeleteQuestion(EQuestion? question)
