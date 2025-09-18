@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:Questionnaire"
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
-        
+        <ResourceDictionary Source="/Themes/ButtonStyles.xaml"/>
     </Application.Resources>
 </Application>
