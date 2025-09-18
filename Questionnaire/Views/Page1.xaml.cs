@@ -14,5 +14,10 @@ namespace Questionnaire.Views
             InitializeComponent();
             this.DataContext = new QuestionnaireViewModel();
         }
+
+        private void TextBox_IsKeyboardFocusedChanged(object sender, System.Windows.DependencyPropertyChangedEventArgs e)
+        {
+
+        }
     }
 }
