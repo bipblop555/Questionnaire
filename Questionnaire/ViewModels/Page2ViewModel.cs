@@ -44,6 +44,7 @@ public sealed partial class Page2ViewModel
         };
 
         this.questionService.AddQuestion(question);
+
         var reponses = new List<EReponse>
         {
             new EReponse { Contenu = "Réponse A", QuestionId = question.Id },
@@ -52,36 +53,48 @@ public sealed partial class Page2ViewModel
             new EReponse { Contenu = "Réponse D", QuestionId = question.Id, EstBonneReponse = true },
         };
 
-        foreach (var reponse in reponses)
-        {
-            this.reponseService.AddReponse(reponse);
-        }
+        this.reponseService.AddReponse(reponses);
+
+        question.Reponses = reponses;
 
         this.SelectedQuestion = question;
         this.Questions.Add(question);
     }
 
-    //private void AddReponses(EQuestion question)
-    //{
-        
-    //}
-
     private void UpdateQuestion(int questionId)
     {
-        //this.questionService.
+        if(this.selectedQuestion is not null)
+        {
+
+            var question = new EQuestion
+            {
+                Id = questionId,
+                QuestionnaireId = this.questionnaireId,
+                Contenu = this.SelectedQuestion.Contenu
+            };
+
+            var reponses = new List<EReponse>
+            {
+                new EReponse { Contenu = SelectedQuestion.MauvaisesReponses[0].Contenu, QuestionId = questionId },
+                new EReponse { Contenu = SelectedQuestion.MauvaisesReponses[1].Contenu, QuestionId = questionId },
+                new EReponse { Contenu = SelectedQuestion.MauvaisesReponses[2].Contenu, QuestionId = questionId },
+                new EReponse { Contenu = SelectedQuestion.BonneReponse.Contenu, QuestionId = questionId, EstBonneReponse = true },
+            };
+
+            this.questionService.UpdateQuestion(question);
+            foreach(var reponse in reponses)
+            {
+
+                this.reponseService.UpdateReponse(reponse);
+            }
+        }
     }
 
     private void DeleteQuestion(int questionId)
     {
         this.questionService.RemoveQuestion(questionId);
         var question = this.Questions.FirstOrDefault(q => q.Id == questionId);
-        if(question is not null)
+        if (question is not null)
             this.Questions.Remove(question);
-        DeleteReponses(questionId);
-    }
-
-    private void DeleteReponses(int questionId)
-    {
-        this.reponseService.DeleteReponse(questionId);
     }
 }

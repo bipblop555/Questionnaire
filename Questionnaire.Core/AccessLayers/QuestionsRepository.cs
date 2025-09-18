@@ -38,5 +38,13 @@ public sealed class QuestionsRepository
         .Where(q => q.QuestionnaireId == questionnaireId).ToList();
 
     public void Update(EQuestion question)
-        => this.DbContext.Questions.Update(question);
+    {
+        var questionDb = this.DbContext.Questions.FirstOrDefault(q => q.Id == question.Id);
+        if (questionDb is not null)
+        {
+            questionDb.Contenu = question.Contenu;
+            this.DbContext.SaveChanges();
+        }
+
+    }
 }

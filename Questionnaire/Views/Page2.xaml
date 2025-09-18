@@ -43,20 +43,20 @@
 
         <StackPanel Grid.Column="1">
                 <Label Content="Question" Height="30"></Label>
-                <TextBox Height="30" VerticalContentAlignment="Center" x:Name="QuestionTitle"
+                <TextBox Height="30" VerticalContentAlignment="Center"
                          Text="{Binding SelectedQuestion.Contenu, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                 <Label Content="Réponses possibles" Height="30"></Label>
                 <TextBox Height="30" VerticalContentAlignment="Center" Margin="0, 10, 0, 0"
-                         Text="{Binding SelectedQuestion.MauvaisesReponses[0].Contenu}" x:Name="ReponseA"></TextBox>
+                         Text="{Binding SelectedQuestion.MauvaisesReponses[0].Contenu}"></TextBox>
             <TextBox Height="30" VerticalContentAlignment="Center" Margin="0, 10, 0, 0"
-                        Text="{Binding SelectedQuestion.MauvaisesReponses[1].Contenu}" x:Name="ReponseB"></TextBox>
+                        Text="{Binding SelectedQuestion.MauvaisesReponses[1].Contenu}"></TextBox>
             <TextBox Height="30" VerticalContentAlignment="Center" Margin="0, 10, 0, 0"
-                         Text="{Binding SelectedQuestion.MauvaisesReponses[2].Contenu}" x:Name="ReponseC"></TextBox>
+                         Text="{Binding SelectedQuestion.MauvaisesReponses[2].Contenu}"></TextBox>
             <TextBox Height="30" VerticalContentAlignment="Center" Margin="0, 10, 0, 0"
-                        Text="{Binding SelectedQuestion.BonneReponse.Contenu, UpdateSourceTrigger=PropertyChanged}" x:Name="ReponseD" ></TextBox>
+                        Text="{Binding SelectedQuestion.BonneReponse.Contenu, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
                 <Label Content="Bonne réponse" Height="30"></Label>
                 <TextBox Height="30" VerticalContentAlignment="Center"
-                    Text="{Binding SelectedQuestion.BonneReponse.Contenu, UpdateSourceTrigger=PropertyChanged}" x:Name="BonneReponse"></TextBox>
+                    Text="{Binding SelectedQuestion.BonneReponse.Contenu, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Column="1">
             <Button Width="120" Height="40" Margin="0,0,20,0" Command="{Binding AddQuestionCommand}">

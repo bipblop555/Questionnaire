@@ -24,5 +24,7 @@ public class QuestionService
     public void RemoveQuestion(int questionId)
         => this.questionsRepository.Delete(questionId);
 
+    public void UpdateQuestion(EQuestion question)
+        => this.questionsRepository.Update(question);
 
 }
